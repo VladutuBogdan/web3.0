@@ -1,0 +1,5 @@
+Phrase: stand visual announce name sample pen ancient know actor invite click also
+
+parola: 12345678
+
+You can use Goerli Test Network.

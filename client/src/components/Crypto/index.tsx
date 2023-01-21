@@ -1,7 +1,7 @@
 import { SiEthereum } from 'react-icons/si';
 import { BsInfoCircle } from 'react-icons/bs';
 
-import { Loader } from '../';
+import { Input, Loader } from '../';
 
 const Crypto = () => {
     return (
@@ -60,7 +60,22 @@ const Crypto = () => {
                         </div>
                     </div>
 
-                    {/* start from here with form */}
+                    <div className='p-5 sm:w-96 w-full flex flex-col justify-start items-center blue-glassmorphism'>
+                        <Input placeholder="Address To" value="" name="adressTo" type="text" onChange={() => {}} />
+                        <Input placeholder="Amount (ETH)" value="" name="amount" type="number" onChange={() => {}} />
+                        <Input placeholder="Enter message" value="" name="message" type="text" onChange={() => {}} />
+
+                        {false ? (
+                            <Loader />
+                        ) : (
+                            <button
+                            type="button"
+                            onClick={() => {}}
+                            className="text-white w-full mt-2 border-[1px] p-2 border-[#3d4f7c] rounder-full cursor-pointer">
+                                Send Now
+                            </button>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>
