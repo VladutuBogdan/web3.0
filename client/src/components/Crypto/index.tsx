@@ -1,9 +1,14 @@
+import { useContext } from 'react';
 import { SiEthereum } from 'react-icons/si';
 import { BsInfoCircle } from 'react-icons/bs';
 
 import { Input, Loader } from '../';
+import { TransactionContext } from '../../context/TransactionContext';
+import { shortenAddress } from '../../utils/functions';
 
 const Crypto = () => {
+    const { connectedAccount, isLoading, connectWallet, handleChange, handleSubmit } = useContext(TransactionContext);
+
     return (
         <div className='flex w-full justify-center items-center'>
             <div className='flex md:flex-row flex-col items-start justify-between md:p-20 py-12 px-4'>
@@ -14,9 +19,14 @@ const Crypto = () => {
                     <p className='text-left mt-5 text-white font-light md: w-9/12 w-11/12 text-base'> 
                         Explore the crypto world.
                     </p>
-                    <button type="button" onClick={() => {}} className="my-5 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2546bd]">
-                        <span className='text-white text-base font-semibold'>Connect Wallet</span>
-                    </button>
+
+                    {
+                        !connectedAccount && (
+                            <button type="button" onClick={connectWallet} className="my-5 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2546bd]">
+                                <span className='text-white text-base font-semibold'>Connect Wallet</span>
+                            </button>
+                        )
+                    }
 
                     <div className="grid sm:grid-cols-3 grid-cols-2 w-full mt-10">
                         <div className='rounded-tl-2xl min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-gray-400 text-sm font-light text-white'>
@@ -51,7 +61,9 @@ const Crypto = () => {
                             </div>
                             <div>
                                 <p className='text-white font-light text-sm'>
-                                    ...
+                                    {
+                                        connectedAccount ?  shortenAddress(connectedAccount) : '...'
+                                    }
                                 </p>
                                 <p className='text-white font-semibold text-lg mt-1'>
                                     Ethereum
@@ -61,16 +73,16 @@ const Crypto = () => {
                     </div>
 
                     <div className='p-5 sm:w-96 w-full flex flex-col justify-start items-center blue-glassmorphism'>
-                        <Input placeholder="Address To" value="" name="adressTo" type="text" onChange={() => {}} />
-                        <Input placeholder="Amount (ETH)" value="" name="amount" type="number" onChange={() => {}} />
-                        <Input placeholder="Enter message" value="" name="message" type="text" onChange={() => {}} />
+                        <Input placeholder="Address To" name="addressTo" type="text" onChange={handleChange} />
+                        <Input placeholder="Amount (ETH)" name="amount" type="number" onChange={handleChange} />
+                        <Input placeholder="Enter message" name="message" type="text" onChange={handleChange} />
 
-                        {false ? (
+                        {isLoading ? (
                             <Loader />
                         ) : (
                             <button
                             type="button"
-                            onClick={() => {}}
+                            onClick={handleSubmit}
                             className="text-white w-full mt-2 border-[1px] p-2 border-[#3d4f7c] rounder-full cursor-pointer">
                                 Send Now
                             </button>
